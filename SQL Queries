@@ -1,0 +1,18 @@
+Question A
+How many orders were shipped by Speedy Express in total?
+
+Question B
+What is the last name of the employee with the most orders?
+
+Question C
+What product was ordered the most by customers in Germany?
+
+
+Question A
+SELECT ShipperName, COUNT(ShipperName) AS 'Orders Shipped' FROM Shippers AS s INNER JOIN Orders AS ord ON s.ShipperID = ord.ShipperID WHERE ShipperName = 'Speedy Express'
+
+Question B
+SELECT LastName, COUNT(LastName) AS 'Number of Orders by Employee' FROM Employees AS e INNER JOIN Orders AS ord ON e.EmployeeID = ord.EmployeeID GROUP BY LastName ORDER BY COUNT(LastName) DESC LIMIT 1
+
+Question C
+SELECT ProductName, COUNT(ProductName) As 'Number of Times Product was ordered' FROM Products As p INNER JOIN OrderDetails AS ordDetails ON p.ProductID = ordDetails.ProductID INNER JOIN Orders As ord ON ordDetails.OrderID = ord.OrderID INNER JOIN Customers As c ON ord.CustomerID = c.CustomerID WHERE c.Country = 'Germany' GROUP BY ProductName ORDER BY COUNT(ProductName) DESC LIMIT 1
